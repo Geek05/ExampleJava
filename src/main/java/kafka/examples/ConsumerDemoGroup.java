@@ -4,11 +4,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.ProducerConfig;
-import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringDeserializer;
-import org.apache.kafka.common.serialization.StringSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,14 +16,14 @@ import java.util.Properties;
  * @author Bharath.MC
  * @since Jul-2020
  */
-public class ConsumerDemo {
+public class ConsumerDemoGroup {
     static Properties properties;
-    static Logger logger = LoggerFactory.getLogger(ConsumerDemo.class);
+    static Logger logger = LoggerFactory.getLogger(ConsumerDemoGroup.class);
     static String TOPIC_NAME = "myFirstTopic";
 
     static {
         String bootstrapServers = "localhost:9092";
-        String groupId = "my-JavaApp-consumer-Group-demo";
+        String groupId = "my-JavaApp-consumer-Group-demo01";
         properties = new Properties();
         properties.setProperty(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         properties.setProperty(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
