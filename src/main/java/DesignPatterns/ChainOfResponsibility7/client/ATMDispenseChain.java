@@ -35,7 +35,7 @@ public class ATMDispenseChain {
         c7.setNextChain(c8);
     }
 
-    public void ATMDispenseChainUsingBuilder() {
+    public DispenseChain ATMDispenseChainUsingBuilder() {
         DispenseChain dispenseChain = ChainBuilder.Builder().
                 with2kDispenser().
                 with1kDispenser().
@@ -45,13 +45,13 @@ public class ATMDispenseChain {
                 with20Dispenser().
                 with10Dispenser().
                 Build();
-        c1 = dispenseChain;
+        return dispenseChain;
     }
 
-    public static void main(String[] args) {
+    public void interactiveWithdrawl(){
         ATMDispenseChain atmDispenser = new ATMDispenseChain();
         //atmDispenser.CreateATMDispenseChain();
-        atmDispenser.ATMDispenseChainUsingBuilder();
+        DispenseChain dispenseChain = atmDispenser.ATMDispenseChainUsingBuilder();
         while (true) {
             int amount = 0;
             System.out.println("Enter amount to dispense");
@@ -66,7 +66,13 @@ public class ATMDispenseChain {
                 return;
             }
             // process the request
-            atmDispenser.c1.dispense(new Currency(amount));
+            dispenseChain.dispense(new Currency(amount));
         }
+    }
+
+    public static void main(String[] args) {
+        ATMDispenseChain atmDispenser = new ATMDispenseChain();
+        DispenseChain dispenseChain = atmDispenser.ATMDispenseChainUsingBuilder();
+        dispenseChain.dispense(new Currency(100));
     }
 }
