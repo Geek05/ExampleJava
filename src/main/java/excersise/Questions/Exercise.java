@@ -1,6 +1,9 @@
 package excersise.Questions;
 
 import java.util.Arrays;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Bharath.MC
@@ -209,8 +212,35 @@ public class Exercise {
         System.out.println(finalString);
     }
 
+    static boolean isAnagram(String a, String b) {
+        if(a==null || b==null || a.isEmpty() || b.isEmpty())
+            return false;
+
+        if(a.length()!=b.length())
+            return false;
+
+
+        a = a.replace(" ", "").toLowerCase();
+        b = b.replace(" ", "").toLowerCase();
+
+        char[] aCharArray = a.toCharArray();
+        for(int i=0;i<aCharArray.length; i++){
+            if(b.indexOf(aCharArray[i])==-1){
+                return false;
+            } else {
+                int index = b.indexOf(aCharArray[i]);
+                b = b.substring(0,index) + b.substring(index+1);
+            }
+        }
+        return true;
+    }
+
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(fibonacciSeries3(2)));
+        Scanner scan = new Scanner(System.in);
+        System.out.println(scan.nextInt());
+        System.out.println(scan.nextDouble());
+        scan.nextLine();
+        System.out.println(scan.nextLine());
     }
 }
