@@ -1,9 +1,6 @@
 package excersise.strings;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @author Bharath.MC
@@ -160,18 +157,22 @@ public class StringExercise01 {
     public static void StringAnagram3() {
         String tokenA = "meal for one";
         String tokenB = "for me alone";
+
         if (Objects.isNull(tokenA) || tokenA.isEmpty()) {
             System.out.println("TokenA is null or empty");
             return;
         }
+
         if (Objects.isNull(tokenB) || tokenB.isEmpty()) {
             System.out.println("TokenB is null or empty");
             return;
         }
+
         if (tokenA.replace(" ", "").length() != tokenB.replace(" ", "").length()) {
             System.out.println("String lengths are not same, hence cant be anagram.");
             return;
         }
+
         char[] charArrayA = tokenA.replace(" ", "").toCharArray();
 
         for (char ch : charArrayA) {
@@ -180,7 +181,7 @@ public class StringExercise01 {
                 return;
             }
             //remove that char
-            tokenB = tokenB.substring(0,tokenB.indexOf(ch)) + tokenB.substring(tokenB.indexOf(ch)+1, tokenB.length());
+            tokenB = tokenB.substring(0,tokenB.indexOf(ch)) + tokenB.substring(tokenB.indexOf(ch)+1);
         }
         System.out.println("Strings are anagram"+tokenB);
     }
@@ -198,8 +199,88 @@ public class StringExercise01 {
         System.out.println(stringConcat.indexOf(stringB)!=-1);
     }
 
+    public static void printFirstNonRepeatedCharacterFromString(){
+        String input = "mmorning";
+        Map<Character,Integer> map = new LinkedHashMap<>();
+        for (Character ch : input.toCharArray()) {
+            map.put(ch, map.containsKey(ch) ? map.get(ch) + 1 : 1);
+        }
+        Set<Map.Entry<Character, Integer>> entries = map.entrySet();
+        for (Map.Entry<Character, Integer> entry : entries) {
+            if(entry.getValue()==1) {
+                System.out.println(entry.getKey());
+                return;
+            }
+        }
+    }
+
+    //aaabbcccaa -> a3b2c3a2
+    public static void compressString(){
+        String inputString = "aaabbcccaavv "; // add last char as space or append with some char
+        char[] inputArray = inputString.toCharArray();
+        String compressedString = "";
+        char currentChar = inputArray[0];
+        int charCount = 0;
+        for (int i = 0; i < inputArray.length; i++) {
+            if(inputArray[i]!=currentChar){
+                compressedString = compressedString + currentChar + charCount;
+                currentChar = inputArray[i];
+                charCount = 1;
+            } else {
+                charCount ++;
+            }
+        }
+        System.out.println(compressedString);
+    }
+
+    //find number of words in string
+    public static void countNumberOfWords(){
+        String inputText = "As a software engineer, We all face some errors/exceptions while writing code! " +
+                "So what do we do when we face such a problem? " +
+                "If we are not sure, We google for solutions immediately.";
+        String[] tokens = inputText.split("\\W+");
+        System.out.println("Words Count = "+ tokens.length);
+    }
+
+    //Replace the whitspaces with #20
+    public static void replaceSpaceUsingStringBuilder(){
+        String text = "Hi,  how are you ?";
+        final String WS_PLACE_HOLDER = "#20";
+        StringBuilder stringBuilder = new StringBuilder();
+        for (char ch : text.toCharArray()) {
+            if(ch==' ')
+                stringBuilder.append(WS_PLACE_HOLDER);
+            else
+                stringBuilder.append(ch);
+        }
+        System.out.println(stringBuilder.toString());
+    }
+
+    //Replace the whitspaces with #20
+    public static void replaceSpaceUsingArray(){
+        String text = "Hi,  how are you ?";
+        final String WS_PLACE_HOLDER = "#20";
+        int spaceCount =0;
+        for (char ch : text.toCharArray()) {
+            if(ch==' ')
+                spaceCount++;
+        }
+        char[] finalText = new char[(text.length() - spaceCount) + (spaceCount * WS_PLACE_HOLDER.length())];
+        int finalTextIndex =0;
+        for (int i=0; i<text.toCharArray().length ;i++) {
+            if(text.toCharArray()[i]==' ') {
+                for (char ch : WS_PLACE_HOLDER.toCharArray()) {
+                    finalText[finalTextIndex++] = ch;
+                }
+            } else{
+                finalText[finalTextIndex++] = text.toCharArray()[i];
+            }
+        }
+        System.out.println(finalText);
+    }
+
     public static void main(String[] args) {
         String string = "reversestring";
-        StringAnagram3();
+        printFirstNonRepeatedCharacterFromString();
     }
 }

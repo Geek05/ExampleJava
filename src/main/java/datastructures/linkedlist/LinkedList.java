@@ -7,87 +7,121 @@ package datastructures.linkedlist;
 public class LinkedList {
     Node head;
     Node tail;
-    static int nodeCount;
+    int size;
 
-    public static void InsertDataAtEnd(LinkedList list, int value) {
-        Node newNode = new Node(value);
-
-        if (list.head == null) {
-            list.head = newNode;
-            list.tail = newNode;
-            nodeCount++;
-            return;
-        }
-        list.tail.next = newNode;
-        list.tail = newNode;
-        nodeCount++;
+    public LinkedList() {
+        head = null;
+        tail = null;
+        size = 0;
     }
 
-    public static void InsertDataAtBeginning(LinkedList list, int value) {
-        Node newNode = new Node(value);
-
-        if (list.head == null) {
-            list.head = newNode;
-            list.tail = newNode;
-            nodeCount++;
-            return;
-        }
-
-        newNode.next = list.head;
-        list.head = newNode;
-        nodeCount++;
+    public int size() {
+        return size;
     }
 
-    public static void InsertDataAtPostion(LinkedList list, int value, int position) {
-        if (position > nodeCount) {
-            System.out.println("insertion at Position is not possible [position > nodeCount] as nodeCount = " + nodeCount);
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    public void insertAtEnd(int value) {
+        Node newNode = new Node(value);
+
+        if (head == null) {
+            head = tail = newNode;
+            size++;
             return;
         }
+        tail.next = newNode;
+        tail = newNode;
+        size++;
+    }
 
-        if (list.head == null && position != 1) {
-            System.out.println("insertion at Position[list.head == null && position!= 1] is not possible as nodeCount = " + nodeCount);
+    public void insertAtBeginning(int value) {
+        Node newNode = new Node(value);
+        if (head == null) {
+            head = tail = newNode;
+            return;
+        }
+        newNode.next = head;
+        head = newNode;
+        size++;
+    }
+
+    public void insertAtPostion(int value, int position) {
+
+        if (position <= 0 || position > size()) {
+            System.out.println("Error, invalid position");
             return;
         }
 
         Node newNode = new Node(value);
+        if (head == null) {
+            head = tail = newNode;
+            size++;
+            return;
+        }
+
+        if (position >= size()) {
+            tail.next = newNode;
+            tail = newNode;
+            size++;
+            return;
+        }
+
         if (position == 1) {
-            newNode.next = list.head;
-            list.head = newNode;
-            nodeCount++;
+            newNode.next = head;
+            head = newNode;
+            size++;
             return;
         }
 
-        Node currentNode = list.head;
-        Node previousNode = currentNode;
-        int counter = 1;
-        while (currentNode != null && counter < position) {
-            previousNode = currentNode;
-            currentNode = currentNode.next;
+        Node current = head;
+        Node previous = current;
+        int counter = 0;
+        while (current != null && position != counter) {
+            previous = current;
+            current = current.next;
             counter++;
         }
-        if (counter <= position) {
-            previousNode.next = newNode;
-            newNode.next = currentNode;
-            nodeCount++;
-        } else {
-            System.out.println("insertion at Position is not possible as nodeCount = " + nodeCount);
-        }
+        newNode.next = previous.next;
+        previous.next = newNode;
+        size++;
     }
 
-    public static void PrintList(LinkedList list) {
+    public void insertSorted(int value) {
+        Node newNode = new Node(value);
+        if (head == null) {
+            head = tail = newNode;
+            size++;
+            return;
+        }
+
+        Node current = head;
+        Node previous = current;
+        while (current != null && current.value < value) {
+            previous = current;
+            current = current.next;
+        }
+        newNode.next = previous.next;
+        previous.next = newNode;
+        size++;
+    }
+
+
+    public void PrintList(LinkedList list) {
         if (list.head == null) {
-            System.out.println("List is Empty!");
+            System.out.println("List is Empty");
             return;
         }
         Node temp = list.head;
-        System.out.println(" -- Printing List -- ");
         while (temp != null) {
-            System.out.println(temp.value);
+            System.out.print(temp.value + " -> ");
             temp = temp.next;
         }
+        System.out.println("null");
     }
 
-    public static void PrintListRecursive(Node head) {
+    public void PrintListRecursive(Node head) {
         if (head == null) {
             return;
         }
@@ -95,7 +129,7 @@ public class LinkedList {
         PrintListRecursive(head.next);
     }
 
-    public static void PrintListRecursiveReverse(Node head) {
+    public void PrintListRecursiveReverse(Node head) {
         if (head == null) {
             return;
         }
@@ -103,23 +137,45 @@ public class LinkedList {
         System.out.println(head.value);
     }
 
-    public static void DeleteFirst(LinkedList list) {
-        if (list.head == null) {
-            System.out.println("List is empty");
+    public void removeFirst() {
+        if (head == null) {
+            System.out.println("Linked List is Empty");
             return;
         }
-        if (list.head.next == null) {
-            System.out.println("Deleting Last Node.." + list.head.value);
-            list.head = null;
-            nodeCount--;
-            return;
-        }
-        System.out.println("Deleting First Node.. " + list.head.value);
-        list.head = list.head.next;
-        nodeCount--;
+        System.out.println("Deleting " + head.value);
+        head = head.next;
+        size--;
+        if (isEmpty())
+            tail = null;
     }
 
-    public static void DeleteLast(LinkedList list) {
+    public void removeLast() {
+        if (head == null) {
+            System.out.println("Linked List is empty");
+            return;
+        }
+
+        if (head == tail) {
+            System.out.println("Deleting last node " + head.value);
+            head = tail = null;
+            size--;
+            return;
+        }
+
+        Node previous = head;
+        int counter = 1;
+        while (counter < size - 1) {
+            previous = previous.next;
+            counter++;
+        }
+        tail = previous;
+        previous = previous.next;
+        System.out.println("Deleting last " + previous.value);
+        tail.next = null;
+        size--;
+    }
+
+    public void DeleteLast(LinkedList list) {
         if (list.head == null) {
             System.out.println("List is empty");
             return;
@@ -127,7 +183,7 @@ public class LinkedList {
         if (list.head.next == null) {
             System.out.println("Deleting Last Node.." + list.head.value);
             list.head = null;
-            nodeCount--;
+            size--;
             return;
         }
         Node currentNode = list.head;
@@ -138,20 +194,49 @@ public class LinkedList {
         }
         System.out.println("Deleting Last Node.." + currentNode.value);
         previousNode.next = null;
-        nodeCount--;
+        size--;
     }
 
-    public static void DeleteNodeAtPosition(LinkedList list, int position) {
+    public void deleteAtPosition(int position) {
+        if (head == null) {
+            System.out.println("List is Empty..");
+            return;
+        }
+
+        if (position <= 0 || position > size()) {
+            System.out.println("Invalid position to delete");
+            return;
+        }
+
+        if (position <= 1) {
+            System.out.println("deleting element " + head.value);
+            head = head.next;
+            size--;
+            return;
+        }
+
+        Node present = head;
+        int counter = 1;
+        while (counter < position - 1) {
+            present = present.next;
+            counter++;
+        }
+        System.out.println("Deleting " + present.next.value);
+        present.next = present.next.next;
+        size--;
+    }
+
+    public void DeleteNodeAtPosition(LinkedList list, int position) {
         if (list.head == null) {
             System.out.println("List is Empty..");
             return;
         }
         if (position <= 1) {
-            DeleteFirst(list);
+            //DeleteFirst(list);
             return;
         }
-        if (!(position <= nodeCount)) {
-            System.out.println(String.format("Position[%s] unavailable as current Linkedlist size[%s]", position, nodeCount));
+        if (!(position <= size)) {
+            System.out.println(String.format("Position[%s] unavailable as current Linkedlist size[%s]", position, size));
             return;
         }
         int counter = 1;
@@ -166,7 +251,8 @@ public class LinkedList {
         previousNode.next = currentNode.next;
     }
 
-    public static void DeleteByKey(LinkedList list, int key) {
+
+    public void DeleteByKey(LinkedList list, int key) {
         if (list.head == null) {
             System.out.println("List is empty");
             return;
@@ -192,7 +278,7 @@ public class LinkedList {
         }
     }
 
-    public static int LengthOfLinkedList(LinkedList list) {
+    public int LengthOfLinkedList(LinkedList list) {
         Node temp = list.head;
         int length = 0;
         if (temp != null) {
@@ -204,17 +290,17 @@ public class LinkedList {
         return length;
     }
 
-    private static int LengthRecursion(Node head) {
+    private int LengthRecursion(Node head) {
         if (head == null)
             return 0;
         return 1 + LengthRecursion(head.next);
     }
 
-    public static int GetLengthRec(LinkedList list) {
+    public int GetLengthRec(LinkedList list) {
         return LengthRecursion(list.head);
     }
 
-    public static boolean searchElement(Node head, int key) {
+    public boolean searchElement(Node head, int key) {
         if (head == null)
             return false;
         if (head.value == key)
@@ -223,7 +309,7 @@ public class LinkedList {
             return searchElement(head.next, key);
     }
 
-    public static int GetNthNode(Node head, int index) {
+    public int GetNthNodeFromBeginning(Node head, int index) {
         if (head == null || index < 1) {
             return 0;
         }
@@ -241,4 +327,38 @@ public class LinkedList {
         else
             return 0;
     }
+
+    /**
+     * Find Nth node form end
+     * n=3, return 3rd node from last
+     * Cannot use list counter/size variable
+     * 2 pointers, pointer 1 is at 1st position and pointer 2 is at 3rd node.
+     * when 3rd node reaches null, we return 1st pointer
+     */
+    public int nthNodeFromEnd(int nthNode) {
+        if (head == null) {
+            System.out.println("Empty list");
+            return -1;
+        }
+        Node basePointer = head;
+        Node tempPointer = head;
+
+        int counter = 0;
+        while (tempPointer != null && counter < nthNode) {
+            tempPointer = tempPointer.next;
+            counter++;
+        }
+
+        if (counter != nthNode)
+            return -1;
+
+        while (tempPointer != null) {
+            basePointer = basePointer.next;
+            tempPointer = tempPointer.next;
+        }
+
+        return basePointer.value;
+
+    }
+
 }

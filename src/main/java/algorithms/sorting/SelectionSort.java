@@ -8,6 +8,11 @@ import java.util.Arrays;
  */
 public class SelectionSort {
 
+    /**
+     * Selection sort is SELECTING THE POSITION
+     * for a given position, which is the smallest element fits in
+     *
+     */
     private static int[] selectionSort(final int[] unsortedArray) {
         int[] array = unsortedArray.clone();
         int position = 0;

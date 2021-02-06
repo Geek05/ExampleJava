@@ -15,22 +15,22 @@ public class RecursionExercise01 {
     //sum between range
     public static int sum(int start, int end) {
         if (end > start)
-            return end + sum(start , end - 1);
+            return end + sum(start, end - 1);
         return end;
     }
 
-    public static int factorialLoop(int n){
+    public static int factorialLoop(int n) {
         int factorial = 1;
-        for (int i = n; i > 0 ; i--) {
+        for (int i = n; i > 0; i--) {
             factorial = factorial * i;
         }
         return factorial;
     }
 
-    public static int factorial(int n){
-        if(n==1)
+    public static int factorial(int n) {
+        if (n == 1)
             return 1;
-        return n * factorial(n-1);
+        return n * factorial(n - 1);
     }
 
     /**
@@ -38,10 +38,10 @@ public class RecursionExercise01 {
      * if n/3 ==0 FIZZ
      * if n/5 ==0 BUZZ
      */
-    public static void FizzBuzzLoop(){
-        String text ="";
-        for (int i = 0; i <=100; i++) {
-            if(i%3==0 && i%5==0)
+    public static void FizzBuzzLoop() {
+        String text = "";
+        for (int i = 0; i <= 100; i++) {
+            if (i % 3 == 0 && i % 5 == 0)
                 text = "FizzBuzz";
             else if (i % 3 == 0)
                 text = "Fizz";
@@ -60,13 +60,13 @@ public class RecursionExercise01 {
      * if n/5 ==0 BUZZ
      * Print reverse
      */
-    public static void FizzBuzz(int n){
-        if(n<1) {
+    public static void FizzBuzz(int n) {
+        if (n < 1) {
             System.out.println(n);
             return;
         }
-        String text ="";
-        if(n%3==0 && n%5==0)
+        String text = "";
+        if (n % 3 == 0 && n % 5 == 0)
             text = "FizzBuzz";
         else if (n % 3 == 0)
             text = "Fizz";
@@ -75,7 +75,7 @@ public class RecursionExercise01 {
         else
             text = Integer.toString(n);
         System.out.println(text);
-        FizzBuzz(n-1);
+        FizzBuzz(n - 1);
     }
 
     /**
@@ -85,12 +85,12 @@ public class RecursionExercise01 {
      * if n/5 ==0 BUZZ
      * Print forward
      */
-    public static void FizzBuzz2(int n){
-        if(n>100) {
+    public static void FizzBuzz2(int n) {
+        if (n > 100) {
             return;
         }
-        String text ="";
-        if(n%3==0 && n%5==0)
+        String text = "";
+        if (n % 3 == 0 && n % 5 == 0)
             text = "FizzBuzz";
         else if (n % 3 == 0)
             text = "Fizz";
@@ -99,21 +99,21 @@ public class RecursionExercise01 {
         else
             text = Integer.toString(n);
         System.out.println(text);
-        FizzBuzz2(n+1);
+        FizzBuzz2(n + 1);
     }
 
     /**
      * 1 1 2 3 4 5 6
      */
-    public static void fibbonnacciLoop(int n){
-        int n1 = 0, n2 =1;
-        int fib =0;
-        System.out.print(n1+" "+n2);
-        for (int i = 0; i <n; i++) {
+    public static void fibbonnacciLoop(int n) {
+        int n1 = 0, n2 = 1;
+        int fib = 0;
+        System.out.print(n1 + " " + n2);
+        for (int i = 0; i < n; i++) {
             fib = n1 + n2;
             n1 = n2;
             n2 = fib;
-            System.out.print(" "+fib+" ");
+            System.out.print(" " + fib + " ");
         }
     }
 
@@ -121,21 +121,45 @@ public class RecursionExercise01 {
      * Recursion
      * 1 1 2 3 4 5 6
      */
-    public static int fibbonnacciRecursion(int n){
-        if(n<=1)
+    public static int fibbonnacciRecursion(int n) {
+        if (n <= 1)
             return 1;
-        return fibbonnacciRecursion(n-2) + fibbonnacciRecursion(n-1);
+        return fibbonnacciRecursion(n - 2) + fibbonnacciRecursion(n - 1);
     }
 
-    public static void fibbonnacciUsingRecursion(int n){
+    public static void fibbonnacciUsingRecursion(int n) {
         for (int i = 0; i < n; i++) {
-            System.out.print(fibbonnacciRecursion(i)+" ");
+            System.out.print(fibbonnacciRecursion(i) + " ");
         }
     }
 
+    /**
+     * find max using recursion
+     * int[] array = {4, 3, 6, 7, 0, 9, 2};
+     * int max = findMax(array, 0, array.length-1);
+     */
+    static int max = Integer.MIN_VALUE;
+
+    public static int findMax(int[] array, int index, int length) {
+        if (index > length)
+            return max;
+        if (array[index] > max)
+            max = array[index];
+        return findMax(array, index + 1, length);
+    }
+
+    public static int MaximumNumber(int[] array, int index) {
+        if (index == 0)
+            return 0;
+        return Math.max(array[index], MaximumNumber(array, index - 1));
+    }
+
+    public static void MaximumNumberDemo() {
+        int[] array = {4, 3, 6, 7, 0, 9, 2};
+        System.out.println(MaximumNumber(array, array.length - 1));
+    }
 
     public static void main(String[] args) {
-        int n = 6;
-        fibbonnacciUsingRecursion(n);
+
     }
 }

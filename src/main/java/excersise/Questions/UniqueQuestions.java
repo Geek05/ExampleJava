@@ -1,9 +1,6 @@
 package excersise.Questions;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Bharath.MC
@@ -32,28 +29,6 @@ public class UniqueQuestions {
     }
 
     /**
-     * Boyersmore algorithm
-     * Thisiscoolandsimplesentencewheresimpleisverysimpleandcool
-     */
-    public static void searchText() {
-        String input = "Thisiscoolandsimplesentencewheresimpleisverysimpleandcool";
-        String token = "simple";
-        int k = 0;
-        for (int i = 0; i < input.length(); i++) {
-            k = 0;
-            for (int j = 0; j < token.length(); j++) {
-                if (token.charAt(j) == input.charAt(i + k)) {
-                    k++;
-                } else {
-                    break;
-                }
-            }
-            if (k == token.length())
-                System.out.println("Token found at index " + i);
-        }
-    }
-
-    /**
      * print duplicate characters from a string
      */
     public static void printDuplicates() {
@@ -69,38 +44,6 @@ public class UniqueQuestions {
             }
         }
         System.out.println(duplicates);
-    }
-
-    /**
-     * strings are anagrams
-     */
-    public static void anagrams() {
-        String input1 = "made for Each Other";
-        String input2 = "Each for Made Other";
-        input1 = input1.trim().toLowerCase();
-        input2 = input2.trim().toLowerCase();
-        StringBuilder input2sb = new StringBuilder(input2);
-        for (int i = 0; i < input1.toCharArray().length; i++) {
-            if (input2sb.indexOf(String.valueOf(input1.charAt(i))) == -1) {
-                System.out.println("Strings are not anagrams!");
-                return;
-            } else {
-                input2sb.deleteCharAt(input2sb.indexOf(String.valueOf(input1.charAt(i))));
-            }
-        }
-        if (input2sb.length() == 0) {
-            System.out.println("Strings are anagrams!");
-            return;
-        }
-    }
-
-    /**
-     * string be reversed using recursion
-     */
-    public static String reverse(String input) {
-        if (input.length() <= 0)
-            return "";
-        return reverse(input.substring(1)) + input.charAt(0);
     }
 
     /**
@@ -153,44 +96,6 @@ public class UniqueQuestions {
     }
 
     /**
-     * occurrence of a given character in a string
-     * aaabbccd : a3b2c2d1
-     */
-    public static void stringCompression() {
-        String input = "aaabbccda";
-        String output = "";
-        int count = 0;
-        char current = input.charAt(0);
-        for (int i = 0; i < input.length(); i++) {
-            if (current != input.charAt(i)) {
-                output = output + current + count;
-                current = input.charAt(i);
-                count = 1;
-                if (i == input.length() - 1)
-                    output = output + current + count;
-            } else {
-                count++;
-            }
-        }
-        System.out.println(output);
-    }
-
-    /**
-     * remove the duplicate character from String
-     */
-    public static void removeDuplicateCharacterFromString() {
-        String input = "Programming";
-        input = input.trim().toLowerCase();
-        String uniqueString = "";
-        for (int i = 0; i < input.length(); i++) {
-            if (uniqueString.indexOf(input.charAt(i)) == -1) {
-                uniqueString = uniqueString + input.charAt(i);
-            }
-        }
-        System.out.println("UniqueString = " + uniqueString);
-    }
-
-    /**
      * longest substring without repeating characters
      */
     public static void longestUniqueSubstring() {
@@ -204,7 +109,142 @@ public class UniqueQuestions {
 
     }
 
+    public static void TabLikeFunctionality() {
+        int[] array = new int[]{1, 2, 3, 4, 5};
+        int switchTabIndex = 3;
+        int switchedElement = array[switchTabIndex];
+        for (int i = switchTabIndex; i > 0; i--) {
+            array[i] = array[i - 1];
+        }
+        array[0] = switchedElement;
+        System.out.println(Arrays.toString(array));
+    }
+
+    /**
+     * Kadane’s Algorithm
+     * Find Contiguous subarray with maximum sum
+     * INput: {2, -3, 7, -4, 2, 5, -8, 6, -1}
+     * Output: {7, -4, 2, 5}
+     * Explaination: https://javaconceptoftheday.com/contiguous-subarray-with-maximum-sum-in-java/
+     */
+    public static void ContiguousSubarrayWithMaximumSum() {
+        int[] array = new int[]{2, -3, 7, -4, 2, 5, -8, 6, -1};
+
+        int bestSum = array[0];
+        int bestStart = 0;
+        int bestEnd = 0;
+
+        int currentSum = 0;
+        int currentStart = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            currentSum = currentSum + array[i];
+
+            if (currentSum < 0) {
+                currentSum = 0;
+                currentStart = i + 1;
+            }
+            if (currentSum > bestSum) {
+                bestSum = currentSum;
+                bestStart = currentStart;
+                bestEnd = i;
+            }
+        }
+
+        for (int i = bestStart; i <= bestEnd; i++) {
+            System.out.print(array[i] + " , ");
+        }
+        System.out.println();
+    }
+
+    public static void smallestSumSubarr() {
+        int[] array = new int[]{3, -4, 2, -3, -1, 7, -5};
+
+        int bestSum = array[0];
+        int bestStart = 0;
+        int bestEnd = 0;
+
+        int currentSum = 0;
+        int currentStart = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            currentSum = currentSum + array[i];
+
+            if (currentSum > 0) {
+                currentSum = 0;
+                currentStart = i + 1;
+            }
+            if (currentSum < bestSum) {
+                bestSum = currentSum;
+                bestStart = currentStart;
+                bestEnd = i;
+            }
+        }
+        for (int i = bestStart; i <= bestEnd; i++) {
+            System.out.print(array[i] + " , ");
+        }
+        System.out.println();
+    }
+
+    /**
+     * brakets problem - parse the brackets are right
+     * [()](())[[]]
+     */
+    public static boolean parseBraces(String input) {
+
+        if (input == null || input.isEmpty())
+            return true;
+
+        Stack<Character> roundBraces = new Stack<>();
+        Stack<Character> squareBraces = new Stack<>();
+        for (int i = 0; i < input.toCharArray().length; i++) {
+            if (input.charAt(i) == '(') {
+                roundBraces.push('(');
+                continue;
+            } else if (input.charAt(i) == '[') {
+                squareBraces.push('[');
+                continue;
+            } else if (input.charAt(i) == ')') {
+                if (roundBraces.isEmpty())
+                    return false;
+                Character ch = roundBraces.pop();
+                if (ch != '(') {
+                    return false;
+                }
+            } else if (input.charAt(i) == ']') {
+                if (squareBraces.isEmpty())
+                    return false;
+                Character ch = squareBraces.pop();
+                if (ch != '[') {
+                    return false;
+                }
+            }
+        }
+        return roundBraces.size() == 0 && squareBraces.size() == 0;
+    }
+
+    public static void testParseBraces() {
+        System.out.println(parseBraces("[()](())[[]]"));
+        System.out.println(parseBraces("[(](())[[]]"));
+        System.out.println(parseBraces("()()"));
+        System.out.println(parseBraces("([)()]"));
+        System.out.println(parseBraces("))(("));
+        System.out.println(parseBraces("[)[](]"));
+        System.out.println(parseBraces("apple"));
+        System.out.println(parseBraces(""));
+        System.out.println(parseBraces(null));
+    }
+
+
+    /***
+     * Java program to find missing number in an integer array
+     * 1, 2, 3, 4, 5, 6
+     * sum = n(n+1)/2
+     * use binary search algorithm to find it - O(log n)
+     */
+
     public static void main(String[] args) {
+        smallestSumSubarr();
     }
 
 }

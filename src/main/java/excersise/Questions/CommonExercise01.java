@@ -40,46 +40,6 @@ public class CommonExercise01 {
         }
     }
 
-    public static void findDuplicateIn2Arrays() {
-        int[] arrayA = new int[]{7, 1, 5, 2, 3, 6};
-        int[] arrayB = new int[]{3, 8, 6, 20, 7, 9, 10, 1, 200};
-        for (int i = 0; i < arrayA.length; i++) {
-            for (int j = 0; j < arrayB.length; j++) {
-                if (arrayA[i] == arrayB[j]) {
-                    System.out.println("duplicate " + arrayA[i]);
-                }
-            }
-        }
-    }
-
-    //efficient
-    public static void findDuplicateIn2Arrays2() {
-        int[] arrayA = new int[]{7, 1, 5, 2, 3, 6};
-        int[] arrayB = new int[]{3, 8, 6, 20, 7};
-        Set<Integer> uniqueElements = new HashSet<>();
-        Set<Integer> duplicateElements = new HashSet<>();
-        for (int i = 0; i < arrayA.length; i++) {
-            if (uniqueElements.contains(arrayA[i])) {
-                duplicateElements.add(arrayA[i]);
-                uniqueElements.remove(arrayA[i]);
-            } else {
-                uniqueElements.add(arrayA[i]);
-            }
-        }
-
-        for (int i = 0; i < arrayB.length; i++) {
-            if (uniqueElements.contains(arrayB[i])) {
-                duplicateElements.add(arrayB[i]);
-                uniqueElements.remove(arrayB[i]);
-            } else {
-                uniqueElements.add(arrayB[i]);
-            }
-        }
-
-        System.out.println("duplicate = " + duplicateElements);
-        System.out.println("unique = " + uniqueElements);
-    }
-
     public static void findUniqueIn2Arrays() {
         int[] arrayA = new int[]{7, 1, 5, 2, 3, 6};
         int[] arrayB = new int[]{3, 8, 6, 20, 7, 9, 10, 1, 200};

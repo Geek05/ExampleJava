@@ -57,15 +57,50 @@ public class MergeSort {
             k++;
         }
 
+        for (int l = left; l <=right; l++) {
+            array[l] = tempArray[l];
+        }
+    }
+
+    /*
+    private static void merge(int[] array, int left, int mid, int right) {
+        int i = left;
+        int j = mid + 1;
+        int k = left;
+        int[] tempArray = new int[right + 1];
+
+        while (i <= mid && j <= right) {
+            if (array[i] < array[j]) {
+                tempArray[k] = array[i];
+                i++;
+            } else {
+                tempArray[k] = array[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i <= mid) {
+            tempArray[k] = array[i];
+            i++;
+            k++;
+        }
+
+        while (j <= right) {
+            tempArray[k] = array[j];
+            j++;
+            k++;
+        }
+
         for (int x = left; x < right + 1; x++) {
             array[x] = tempArray[x];
         }
     }
-
+     */
 
     public static void main(String[] args) {
         int[] unsortedArray = {3, 5, 8, 9, 6, 2};
-        mergeSort(unsortedArray, 0, unsortedArray.length-1);
+        mergeSort(unsortedArray, 0, unsortedArray.length - 1);
         System.out.println(Arrays.toString(unsortedArray));
     }
 }
