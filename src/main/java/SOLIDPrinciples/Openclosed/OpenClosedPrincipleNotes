@@ -1,0 +1,19 @@
+Open Closed Principle
+	- Software components should be Open for extension, but closed for modification.
+	- Core class where logic is used need not to be modified.
+	- To achieve this stop using the concrete class in Core class, rather switch to interface and abstraction.
+
+	Imagine:
+		Imagine Gaming console, it supports keypad, Gun, Stering wheel.. etc. But there is no modification made to console. All are extendable without modification.
+
+	Example:
+		Class InsurancePremiumDiscountCalculator has calculatePremiumDiscount(HealthInsuranceCustomerProfile) which takes HealthInsuranceCustomerProfile concrete class as argument.
+
+		- HealthInsuranceCustomerProfile has a method called isLoyalCustomer() whihc returns boolean
+
+		- Modification request: Company merged, so we need to add VehicleInsuranceCustomerProfile
+		solution would be overloading the calculatePremiumDiscount() in InsurancePremiumDiscountCalculator core class.
+
+		- Cleaner option is: Pull out interface CustomerProfile which will be extended by HealthInsuranceCustomerProfile and VehicleInsuranceCustomerProfile and add contract isLoyalCustomer() and pass on the CustomerProfile as argument to core class InsurancePremiumDiscountCalculator.calculatePremiumDiscount(CustomerProfile).
+
+		- So if there is new Profile called HomeInsuranceCustomerProfile intruoduced in future, there is no need to make any change in InsurancePremiumDiscountCalculator class. HomeInsuranceCustomerProfile has to just extend the CustomerProfile interface.

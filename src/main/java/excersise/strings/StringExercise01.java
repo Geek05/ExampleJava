@@ -176,38 +176,38 @@ public class StringExercise01 {
         char[] charArrayA = tokenA.replace(" ", "").toCharArray();
 
         for (char ch : charArrayA) {
-            if(tokenB.indexOf(ch)==-1){
+            if (tokenB.indexOf(ch) == -1) {
                 System.out.println("Strings are not Anagram");
                 return;
             }
             //remove that char
-            tokenB = tokenB.substring(0,tokenB.indexOf(ch)) + tokenB.substring(tokenB.indexOf(ch)+1);
+            tokenB = tokenB.substring(0, tokenB.indexOf(ch)) + tokenB.substring(tokenB.indexOf(ch) + 1);
         }
-        System.out.println("Strings are anagram"+tokenB);
+        System.out.println("Strings are anagram" + tokenB);
     }
 
     //check weather one string rotation of another
     //ex: ABACD can be rotated as CDABA
-    public static void stringRotation(){
+    public static void stringRotation() {
         String stringA = "ABACD";
         String stringB = "CDABA";
-        if(stringA.length() != stringB.length()) {
+        if (stringA.length() != stringB.length()) {
             System.out.println("Strings are not of same length");
             return;
         }
         String stringConcat = stringA + stringA; // ABACDABACD
-        System.out.println(stringConcat.indexOf(stringB)!=-1);
+        System.out.println(stringConcat.indexOf(stringB) != -1);
     }
 
-    public static void printFirstNonRepeatedCharacterFromString(){
+    public static void printFirstNonRepeatedCharacterFromString() {
         String input = "mmorning";
-        Map<Character,Integer> map = new LinkedHashMap<>();
+        Map<Character, Integer> map = new LinkedHashMap<>();
         for (Character ch : input.toCharArray()) {
             map.put(ch, map.containsKey(ch) ? map.get(ch) + 1 : 1);
         }
         Set<Map.Entry<Character, Integer>> entries = map.entrySet();
         for (Map.Entry<Character, Integer> entry : entries) {
-            if(entry.getValue()==1) {
+            if (entry.getValue() == 1) {
                 System.out.println(entry.getKey());
                 return;
             }
@@ -215,40 +215,40 @@ public class StringExercise01 {
     }
 
     //aaabbcccaa -> a3b2c3a2
-    public static void compressString(){
+    public static void compressString() {
         String inputString = "aaabbcccaavv "; // add last char as space or append with some char
         char[] inputArray = inputString.toCharArray();
         String compressedString = "";
         char currentChar = inputArray[0];
         int charCount = 0;
         for (int i = 0; i < inputArray.length; i++) {
-            if(inputArray[i]!=currentChar){
+            if (inputArray[i] != currentChar) {
                 compressedString = compressedString + currentChar + charCount;
                 currentChar = inputArray[i];
                 charCount = 1;
             } else {
-                charCount ++;
+                charCount++;
             }
         }
         System.out.println(compressedString);
     }
 
     //find number of words in string
-    public static void countNumberOfWords(){
+    public static void countNumberOfWords() {
         String inputText = "As a software engineer, We all face some errors/exceptions while writing code! " +
                 "So what do we do when we face such a problem? " +
                 "If we are not sure, We google for solutions immediately.";
         String[] tokens = inputText.split("\\W+");
-        System.out.println("Words Count = "+ tokens.length);
+        System.out.println("Words Count = " + tokens.length);
     }
 
     //Replace the whitspaces with #20
-    public static void replaceSpaceUsingStringBuilder(){
+    public static void replaceSpaceUsingStringBuilder() {
         String text = "Hi,  how are you ?";
         final String WS_PLACE_HOLDER = "#20";
         StringBuilder stringBuilder = new StringBuilder();
         for (char ch : text.toCharArray()) {
-            if(ch==' ')
+            if (ch == ' ')
                 stringBuilder.append(WS_PLACE_HOLDER);
             else
                 stringBuilder.append(ch);
@@ -257,30 +257,71 @@ public class StringExercise01 {
     }
 
     //Replace the whitspaces with #20
-    public static void replaceSpaceUsingArray(){
+    public static void replaceSpaceUsingArray() {
         String text = "Hi,  how are you ?";
         final String WS_PLACE_HOLDER = "#20";
-        int spaceCount =0;
+        int spaceCount = 0;
         for (char ch : text.toCharArray()) {
-            if(ch==' ')
+            if (ch == ' ')
                 spaceCount++;
         }
         char[] finalText = new char[(text.length() - spaceCount) + (spaceCount * WS_PLACE_HOLDER.length())];
-        int finalTextIndex =0;
-        for (int i=0; i<text.toCharArray().length ;i++) {
-            if(text.toCharArray()[i]==' ') {
+        int finalTextIndex = 0;
+        for (int i = 0; i < text.toCharArray().length; i++) {
+            if (text.toCharArray()[i] == ' ') {
                 for (char ch : WS_PLACE_HOLDER.toCharArray()) {
                     finalText[finalTextIndex++] = ch;
                 }
-            } else{
+            } else {
                 finalText[finalTextIndex++] = text.toCharArray()[i];
             }
         }
         System.out.println(finalText);
     }
 
+    /**
+     * Input:
+     * abc def ghi "def ghi klm" mol abacs tasmo "ret set bet rat"
+     * "ret set bet rat" abc def ghi "def ghi klm" mol abacs tasmo "ret set bet rat"
+     * abc def ghi "def ghi klm"  "ret set bet rat"  mol abacs tasmo
+     * <p>
+     * Output of 1:
+     * abc
+     * def
+     * ghi
+     * "def ghi klm"
+     * mol
+     * abacs
+     * tasmo
+     * "ret set bet rat"
+     */
+    public static void splitString1(String input) {
+        String tempString = "";
+        boolean quoteFlag = false;
+        for (char ch : input.toCharArray()) {
+            if (ch == '"' && !quoteFlag) {
+                quoteFlag = true;
+                tempString += String.valueOf(ch);
+            } else if (quoteFlag) {
+                tempString += String.valueOf(ch);
+                if (ch == '"') {
+                    System.out.println(tempString);
+                    quoteFlag = false;
+                    tempString = "";
+                }
+            } else if (ch == ' ') {
+                tempString += String.valueOf(ch);
+                if (tempString.trim().length() > 0)
+                    System.out.println(tempString);
+                tempString = "";
+            } else {
+                tempString += String.valueOf(ch);
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        String string = "reversestring";
-        printFirstNonRepeatedCharacterFromString();
+        String input = "\"ret set bet rat\" abc def ghi \"def ghi klm\" mol abacs tasmo \"ret set bet rat\"";
+        splitString1(input);
     }
 }

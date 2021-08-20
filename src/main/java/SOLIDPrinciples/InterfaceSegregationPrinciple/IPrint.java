@@ -1,2 +1,5 @@
-package SOLIDPrinciples.InterfaceSegregationPrinciple;public class IPrint {
+package SOLIDPrinciples.InterfaceSegregationPrinciple;
+
+public interface IPrint {
+    void print();
 }

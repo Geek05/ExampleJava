@@ -27,9 +27,11 @@ public class YamlExample {
         InputStream inputStream = this.getClass()
                 .getClassLoader()
                 .getResourceAsStream("customer.yaml");
-        Customer customer = yaml.load(inputStream);
-        System.out.println(customer);
-        for (Map.Entry<String, Integer> stringIntegerEntry : customer.getSimpleMapping().entrySet()) {
+        Iterable<Object> yamlData = yaml.loadAll(inputStream);
+        System.out.println(yamlData);
+        Customer customer1 = (Customer)yamlData.iterator().next();
+        Customer customer2 = (Customer)yamlData.iterator().next();
+        for (Map.Entry<String, Integer> stringIntegerEntry : customer2.getSimpleMapping().entrySet()) {
             System.out.println(stringIntegerEntry.getKey() + " , "+ stringIntegerEntry.getValue());
         }
     }

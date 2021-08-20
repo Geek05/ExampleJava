@@ -1,4 +1,4 @@
-package Domain.chaincodes.instantiate;
+package misc.instantiate;
 
 import lombok.Builder;
 import lombok.Data;

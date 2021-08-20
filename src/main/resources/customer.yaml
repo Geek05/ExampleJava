@@ -14,6 +14,29 @@ homeAddress:
   zip: 345657
 
 simpleMapping:
+  XS: 96
+  S:  98
+  M:  90
+  L:  92
+  XL: 94
+
+---
+firstName: "John2"
+lastName: "Doe2"
+age: 32
+
+contactDetails:
+  - type: "mobile"
+    number: 123456789
+  - { type: "landline" , number: 456786868 }
+
+homeAddress:
+  line: "Xyz, DEF Street"
+  city: "City Y"
+  state: "State Y"
+  zip: 345657
+
+simpleMapping:
   XS: 6
   S:  8
   M:  10

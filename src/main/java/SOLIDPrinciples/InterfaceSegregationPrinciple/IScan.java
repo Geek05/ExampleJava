@@ -1,2 +1,6 @@
-package SOLIDPrinciples.InterfaceSegregationPrinciple;public interface IScan {
+package SOLIDPrinciples.InterfaceSegregationPrinciple;
+
+public interface IScan {
+    void scan();
+    void scanPhoto();
 }

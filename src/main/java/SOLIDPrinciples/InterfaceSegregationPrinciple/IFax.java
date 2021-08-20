@@ -1,2 +1,5 @@
-package SOLIDPrinciples.InterfaceSegregationPrinciple;public interface IFax {
+package SOLIDPrinciples.InterfaceSegregationPrinciple;
+
+public interface IFax {
+    void fax();
 }

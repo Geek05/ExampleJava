@@ -1,19 +1,9 @@
 package SOLIDPrinciples.InterfaceSegregationPrinciple;
 
-public class HPPrinter implements IPrint, IScan {
+public class CanonPrinter implements IPrint {
     
     @Override
     public void print() {
-
-    }
-
-    @Override
-    public void scan() {
-
-    }
-
-    @Override
-    public void scanPhoto() {
-
+        System.out.println("Cannon Printer print");
     }
 }

@@ -1,2 +1,7 @@
-package SOLIDPrinciples.DependencyInversionPrinciple.impl;public class ProductRepository {
+package SOLIDPrinciples.DependencyInversionPrinciple.impl;
+
+import java.util.List;
+
+public interface ProductRepository {
+    List<String> getAllProductNames();
 }

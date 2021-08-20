@@ -1,5 +1,5 @@
 package SOLIDPrinciples.Openclosed;
 
-public interface CustomerProfile {
+public interface ICustomerProfile {
     boolean isLoyalCustomer();
 }

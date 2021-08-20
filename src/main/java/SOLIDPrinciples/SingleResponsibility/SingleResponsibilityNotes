@@ -1,0 +1,30 @@
+ Single Responsibility Principle
+
+	Goal: Each class should have exactly one responsibility and know less as much as possible of other class.
+	Or
+	Each component should have one and only reason to change.
+
+	Cohesion and Coupling:
+		- Cohesion is a degree to which the various parts of software components are related.
+		- Cohesion refers to what the class (or module) can do.
+		- Low cohesion : mean that the class does a great variety of actions.
+		  it is broad, unfocused on what it should do.
+		- High cohesion means that the class is focused on what it should be doing.
+		  i.e. only methods relating to the intention of the class.
+		- Ex: Staff class does checkEmail, sendEmail, ValidateEmail, PrintLetter, PrintAddress
+		  High cohesion will have all seperate class rather than bundeling in Staff class
+
+		- Coupling refers to how strongly related or dependent two classess/modules are towards each other.
+		- Low coupled classes: changing something major in one class should not affect the other.
+		- High coupling would make it difficult to change and maintain your code; since classes are closely knit together, making a change could require an entire system revamp.
+		- Example: Student class has save() which persists in DB and other student attributes. DB can change anytime. Student is tightly coupled to save()
+		- Student should store only student attributes and StudentRepository can have the save() - persisting logic.
+
+
+		Good software design has high cohesion and low coupling.
+
+	Problem :
+		- Example: Student class has save() which persists in DB and other student attributes. DB can change anytime. Student is tightly coupled to save()
+
+	Implementation:
+		- Student should store only student attributes and StudentRepository can have the save() - persisting logic.

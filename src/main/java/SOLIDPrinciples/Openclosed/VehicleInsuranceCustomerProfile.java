@@ -1,6 +1,7 @@
-package SOLIDPrinciples.openclosed;
+package SOLIDPrinciples.Openclosed;
 
-public class HealthInsuranceCustomerProfile implements CustomerProfile {
+public class
+VehicleInsuranceCustomerProfile implements ICustomerProfile {
 
     @Override
     public boolean isLoyalCustomer() {

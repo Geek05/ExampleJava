@@ -1,0 +1,31 @@
+4. Interface Segration Principle
+	- No client should not be forced to depend on the methods it does not use.
+	- All interface implemented concrete class should have contract defnition (no empty methods)
+	- Making interfaces single responsibility as much as possible
+
+	Example:
+		Suppose there is a requirement which needs a interface to connect to printer.
+
+		Design:
+		- User encounters a multifuntion printer and creates an interface with below contract
+		- IMultiFunctionPrinter : print(), scan(), fax(), scanPhoto()
+		- And implements a concrete class for it called XeroxWorkCenter and as it supports all functions, it will implement all
+
+		- Now new printer in second floor has another printer which supports only print and scan
+		- HPPrinter implements IMultiFunctionPrinter and defines print() and scan() and keeps fax() and scanPhoto() empty
+
+		- Now new printer in third floor has another printer which supports only print
+		- CanonPrinter implements IMultiFunctionPrinter and defines print() and keeps scan(), fax() and scanPhoto() empty
+
+		Summary: So here the problem is concrete classes are forced to implement the methods which it doesn't use.
+
+		- This is bad design and Interface segregation principle recomends to avoid such designs.
+
+	Solution:
+		- Break big interface to smaller interfaces
+		  a. IPrint : print()
+		  b. IScan : scan(), scanPhoto()
+		  c. IFax : fax()
+		- XeroxWorkCenter implements IPrint, IScan, IFax
+		- HPPrinter implements IPrint, IScan
+		- CanonPrinter implements IPrint

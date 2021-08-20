@@ -1,0 +1,31 @@
+3. Liskov Substutition Principle
+		- Objects should be replacable with its subtypes without affecting correctness of the program.
+		- Any function called by subtype should not fail
+
+		ex1: Parrot is-A Bird and Ostrich is-A Bird
+			Bird has a contract fly()
+			Parrot can fly() .  whereas Ostrich cannot fly(), but still has extended and upon calling Ostrich to fly(), it throws Runtime exception.
+			This violates LSP. As subtype call failes on specific concrete implementation.
+
+		- Solution to this is introrduce more generic interface/abstraction or break the inheritance.
+		   Bird can have feature() or movement()
+
+		ex2: This is more reletable
+		Problem:
+			Car is a class with method getCabinSpace()
+			RaceCar is a class extended from Car and implemets getCabinSpace() and getCockPitSpace()
+			Since RaceCar does not have CabinSpace, its unimplemented and RaceCar has CockPit, it returns CockPitSpace
+
+			Iterating over the Car's getCabinSpace(), will fail when the runtime object is of type RaceCar as its unimplemented
+
+
+		- Solution:
+			Create a more generic class called Vehicle and have more generic function called getInteriorWidth()
+			Now Car and RacingCar both can extend Vehicle interface and overrides getInteriorWidth() and implement their own logics
+
+		Summary:
+		1. Solution is to Break the hirearchy
+		2. Tell, dont Ask rule
+			(This is subtype logic should not be handled by client, it should be by design.
+			Calling subtype should change behaviour by itself inside the overridden function)
+			refer commited example.
